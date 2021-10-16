@@ -1,11 +1,13 @@
 import React from 'react';
 import {useFormik} from "formik";
 import Card from "./context";
+import {ThemeContext} from "./context";
 
 function Withdraw(){
     const [status, setStatus] = React.useState(false);
     const [balance, setBalance] = React.useState(100);
-    const [invalid, setInvalid] = React.useState(false)
+    const [invalid, setInvalid] = React.useState(false);
+    let theme = React.useContext(ThemeContext);
 
     const Formik = useFormik({
         // Form values definition
@@ -43,7 +45,8 @@ function Withdraw(){
     })
     return (
         <Card
-            bgcolor="primary"
+            txtcolor={theme.txtcolor}
+            bgcolor={theme.bgcolor}
             header="WITHDRAW"
             status={status}
             body={(

@@ -1,10 +1,12 @@
 import React from 'react';
 import {useFormik} from "formik";
 import Card from './context';
+import {ThemeContext} from "./context";
 
 function Deposit() {
     let [status, setStatus] = React.useState(false);
-    let [balance, setBalance] = React.useState(100)
+    let [balance, setBalance] = React.useState(100);
+    let theme = React.useContext(ThemeContext);
 
     const Formik = useFormik({
         // Form values definition
@@ -37,7 +39,8 @@ function Deposit() {
     })
     return (
         <Card
-            bgcolor="primary"
+            txtcolor={theme.txtcolor}
+            bgcolor={theme.bgcolor}
             header="DEPOSIT"
             status={status}
             body={(

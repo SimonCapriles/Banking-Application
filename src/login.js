@@ -1,6 +1,5 @@
 import React from 'react';
-import {UserContext} from './App'
-import {UsersContext} from './App'
+import {ThemeContext, UserContext, UsersContext} from './context'
 import {useFormik} from "formik";
 import Card from './context';
 import {validateEmail} from "./context";
@@ -9,6 +8,7 @@ function Login(){
     let [status, setStatus] = React.useState(false);
     let usr = React.useContext(UserContext);
     const users = React.useContext(UsersContext).users;
+    let theme = React.useContext(ThemeContext);
 
     const Formik = useFormik({
         // Form values definition
@@ -59,7 +59,8 @@ function Login(){
     })
     return (
         <Card
-            bgcolor="primary"
+            txtcolor={theme.txtcolor}
+            bgcolor={theme.bgcolor}
             header="LOGIN"
             status={status}
             body={(

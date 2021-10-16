@@ -1,17 +1,19 @@
 import React from 'react';
-import Card from './context';
+import Card, {ThemeContext} from './context';
+import bankImage from './bank.png';
 
-function Home(){
+function CustomCard() {
+    let theme = React.useContext(ThemeContext)
     return (
         <Card
-            txtcolor="black"
-            bgcolor="white"
+            txtcolor={theme.txtcolor}
+            bgcolor={theme.bgcolor}
             header="BadBank Landing Module"
             title="Welcome to the bank"
             text="You can move around using the navigation bar."
-            body={(<img src="./bank.png" className="img-fluid" alt="Bank Application"/>)}
+            body={(<img src={bankImage} className="img-fluid" alt="Bank Application"/>)}
         />
     )
 }
 
-export default Home;
+export default CustomCard;

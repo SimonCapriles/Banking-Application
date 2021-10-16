@@ -1,3 +1,19 @@
+import React from 'react';
+
+export const themes = {
+    light: {
+        txtcolor: 'black',
+        bgcolor: 'white',
+    },
+    dark: {
+        txtcolor: '#ffffff',
+        bgcolor: '#222222',
+    }
+}
+
+export const UserContext = React.createContext(undefined);
+export const UsersContext = React.createContext(null);
+
 function validateEmail(email) {
     const re = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
     return re.test(String(email).toLowerCase())
@@ -25,3 +41,4 @@ function Card(props){
 
 export default Card;
 export {validateEmail};
+export const ThemeContext = React.createContext(themes.dark);

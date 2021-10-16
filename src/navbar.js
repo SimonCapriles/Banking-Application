@@ -1,6 +1,5 @@
 import {Link} from "react-router-dom";
 import React from "react";
-import {UserContext} from "./App";
 
 function NavBar() {
 
@@ -30,9 +29,6 @@ function NavBar() {
                     </li>
                 </ul>
             </div>
-            {/*<UserContext.Consumer>*/}
-            {/*    <div>value => </div>*/}
-            {/*</UserContext.Consumer>*/}
         </nav>
     );
 }

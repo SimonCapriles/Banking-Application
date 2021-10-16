@@ -1,6 +1,6 @@
 import React from 'react';
 import Account from './account'
-import {UsersContext} from './App'
+import {UsersContext} from './context'
 
 function AllData(){
     const accounts = React.useContext(UsersContext).users;
