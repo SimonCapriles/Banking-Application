@@ -2,6 +2,7 @@ import {Link} from "react-router-dom";
 import React from "react";
 import {UserContext} from "./App";
 
+// Context step 5: Consume Context
 function NavBar() {
     const {user} = React.useContext(UserContext);
     return (

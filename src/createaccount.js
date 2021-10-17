@@ -1,12 +1,18 @@
 import React from 'react';
-import {UsersContext, ThemeContext} from './context';
+import {UsersContext} from './App';
+import {ThemeContext} from "./context";
 import {useFormik} from "formik";
 import Card from './context';
 import {validateEmail} from "./context";
 
+function validatePassword(password){
+    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/
+    return re.test(String(password))
+}
+
 function CreateAccount() {
     let [status, setStatus] = React.useState(false);
-    let ctx = React.useContext(UsersContext);
+    let {users, setUsers} = React.useContext(UsersContext);
     let theme = React.useContext(ThemeContext);
 
     const Formik = useFormik({
@@ -20,13 +26,18 @@ function CreateAccount() {
         // On Submit actions
         onSubmit: () => {
             if (Object.keys(Formik.errors).length === 0) {
-                ctx.users.push({
+                console.log(users)
+                let temp = [...users.userList]
+                console.log(temp)
+                temp.push({
                     name: Formik.values.name,
                     email: Formik.values.email,
                     password: Formik.values.password,
                     balance: 0,
                     theme: false
                 });
+                console.log(temp)
+                setUsers({userList: temp})
                 setStatus(true);
                 alert('Account created');
                 Formik.resetForm();
@@ -42,7 +53,13 @@ function CreateAccount() {
                     errors.email = 'Username should be an email'
                 }
             }
-            if (!values.password) errors.password = 'Required';
+            if (!values.password) {
+                errors.password = 'Required'
+            } else {
+                if (!validatePassword(values.password)){
+                    errors.password = 'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'
+                }
+            }
             return errors;
         }
     })

@@ -1,9 +1,9 @@
 import React from 'react';
 import Account from './account'
-import {UsersContext} from './context'
+import {UsersContext} from './App'
 
 function AllData(){
-    const accounts = React.useContext(UsersContext).users;
+    const {users} = React.useContext(UsersContext);
     return (
         <table className="table">
             <thead>
@@ -13,11 +13,14 @@ function AllData(){
                     <th>Password</th>
                 </tr>
             </thead>
+            { users.userList &&
             <tbody>
-                {accounts.map((account, i) => (
+                {users.userList.map((account, i) => (
                     <Account key={i} index={i} account={account}/>
                 ))}
             </tbody>
+            }
+
         </table>
     )
 }

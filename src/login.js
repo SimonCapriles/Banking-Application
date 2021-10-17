@@ -1,14 +1,14 @@
 import React from 'react';
-import {ThemeContext, UsersContext} from './context'
-import {UserContext} from "./App";
+import {ThemeContext} from './context'
+import {UserContext, UsersContext} from "./App";
 import {useFormik} from "formik";
 import Card from './context';
 import {validateEmail} from "./context";
 
 function Login(){
     let [status, setStatus] = React.useState(false);
-    const {user, setUser} = React.useContext(UserContext);
-    const users = React.useContext(UsersContext).users;
+    const {setUser} = React.useContext(UserContext);
+    const {users} = React.useContext(UsersContext);
     let theme = React.useContext(ThemeContext);
 
     const Formik = useFormik({
@@ -21,13 +21,14 @@ function Login(){
         // On Submit actions
         onSubmit: () => {
             if (Object.keys(Formik.errors).length === 0) {
-                console.log(users)
                 //Check from user context a user with same email and password
-                const foundUser = (users.filter((user) => {return user.email === Formik.values.email})[0]);
-                console.log(foundUser)
+                console.log(users)
+                let temp = [...users.userList]
+                const foundUser = (temp.filter((user) => {return user.email === Formik.values.email})[0]);
                 if (foundUser) {
                     alert(`Welcome ${foundUser.name}`);
                     setStatus(true);
+                    // Context step 6: Using the setUser method passed with the Context.Provider to update Context values
                     setUser({
                         name: foundUser.name,
                         email: foundUser.email,
@@ -35,13 +36,11 @@ function Login(){
                     })
                     Formik.resetForm();
                 }
-                console.log(user);
             }
         },
         // Form values validation definition
         validate: values => {
             let errors = {};
-            let foundUser = users.filter((user) => {return user.email === Formik.values.email})
             if (!values.email) {
                 errors.email = 'Field required'
             } else if (!validateEmail(values.email)) {
@@ -50,6 +49,8 @@ function Login(){
             if (!values.password) {
                 errors.password = 'Required'
             }
+            let temp = [...users.userList]
+            const foundUser = (temp.filter((user) => {return user.email === Formik.values.email}));
             if (foundUser[0] === undefined || null){
                 errors.email = 'Username not valid'
             } else if (foundUser[0].password !== values.password){

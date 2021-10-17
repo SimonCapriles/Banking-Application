@@ -2,10 +2,11 @@ import React from 'react';
 import {useFormik} from "formik";
 import Card from './context';
 import {ThemeContext} from "./context";
+import {UserContext} from "./App";
 
 function Deposit() {
+    const {user, setUser} = React.useContext(UserContext);
     let [status, setStatus] = React.useState(false);
-    let [balance, setBalance] = React.useState(100);
     let theme = React.useContext(ThemeContext);
 
     const Formik = useFormik({
@@ -17,7 +18,9 @@ function Deposit() {
         onSubmit: () => {
             if (Object.keys(Formik.errors).length === 0) {
                 alert('Sucess')
-                setBalance(balance + Formik.values.depositAmount)
+                let temp = {...user}
+                temp.balance = user.balance + Formik.values.depositAmount
+                setUser(temp)
                 setStatus(true);
                 Formik.resetForm();
             }
@@ -26,7 +29,7 @@ function Deposit() {
         validate: values => {
             let errors = {};
             if (!values.depositAmount) {
-                errors.depositAmount = 'Field required'
+                errors.depositAmount = 'Must define a Deposit amount'
             }
             if (typeof(values.depositAmount) !== 'number'){
                 errors.depositAmount = 'Must be a number'
@@ -45,7 +48,9 @@ function Deposit() {
             status={status}
             body={(
                 <form onSubmit={Formik.handleSubmit}>
-                    <div>BALANCE {balance}</div>
+                    { user &&
+                        <div>BALANCE {user.balance}</div>
+                    }
                     <div>DEPOSIT AMOUNT</div>
                     <input name="depositAmount" type="number" onChange={Formik.handleChange}
                            value={Formik.values.depositAmount}/>

@@ -2,10 +2,11 @@ import React from 'react';
 import {useFormik} from "formik";
 import Card from "./context";
 import {ThemeContext} from "./context";
+import {UserContext} from "./App";
 
 function Withdraw(){
+    const {user, setUser} = React.useContext(UserContext);
     const [status, setStatus] = React.useState(false);
-    const [balance, setBalance] = React.useState(100);
     const [invalid, setInvalid] = React.useState(false);
     let theme = React.useContext(ThemeContext);
 
@@ -17,12 +18,14 @@ function Withdraw(){
         // On Submit actions
         onSubmit: () => {
             if (Object.keys(Formik.errors).length === 0) {
-                if (Formik.values.withdrawAmount > balance){
+                if (Formik.values.withdrawAmount > user.balance){
                     setInvalid(true)
                     alert('Transaction Failed')
                 } else{
-                    setBalance(balance - Formik.values.withdrawAmount)
                     alert('Success')
+                    let temp = {...user}
+                    temp.balance = user.balance - Formik.values.withdrawAmount
+                    setUser(temp)
                 }
                 setStatus(true);
                 Formik.resetForm();
@@ -32,7 +35,7 @@ function Withdraw(){
         validate: values => {
             let errors = {};
             if (!values.withdrawAmount) {
-                errors.withdrawAmount = 'Field required'
+                errors.withdrawAmount = 'Must define a Withdraw amount'
             }
             if (typeof(values.withdrawAmount) !== 'number'){
                 errors.withdrawAmount = 'Must be a number'
@@ -51,7 +54,9 @@ function Withdraw(){
             status={status}
             body={(
                 <form onSubmit={Formik.handleSubmit}>
-                    <div>BALANCE {balance}</div>
+                    { user &&
+                        <div>BALANCE {user.balance}</div>
+                    }
                     <div>WITHDRAW AMOUNT</div>
                     <input name="withdrawAmount" type="number" onChange={Formik.handleChange}
                            value={Formik.values.withdrawAmount}/>
