@@ -1,12 +1,13 @@
 import React from 'react';
-import {ThemeContext, UserContext, UsersContext} from './context'
+import {ThemeContext, UsersContext} from './context'
+import {UserContext} from "./App";
 import {useFormik} from "formik";
 import Card from './context';
 import {validateEmail} from "./context";
 
 function Login(){
     let [status, setStatus] = React.useState(false);
-    let usr = React.useContext(UserContext);
+    const {user, setUser} = React.useContext(UserContext);
     const users = React.useContext(UsersContext).users;
     let theme = React.useContext(ThemeContext);
 
@@ -22,19 +23,19 @@ function Login(){
             if (Object.keys(Formik.errors).length === 0) {
                 console.log(users)
                 //Check from user context a user with same email and password
-                const user = (users.filter((user) => {return user.email === Formik.values.email})[0]);
-                console.log(user)
-                if (user) {
-                    alert(`Welcome ${user.name}`);
+                const foundUser = (users.filter((user) => {return user.email === Formik.values.email})[0]);
+                console.log(foundUser)
+                if (foundUser) {
+                    alert(`Welcome ${foundUser.name}`);
                     setStatus(true);
-                    usr = {
-                        name: user.name,
-                        email: user.email,
-                        balance: user.balance
-                    }
+                    setUser({
+                        name: foundUser.name,
+                        email: foundUser.email,
+                        balance: foundUser.balance
+                    })
                     Formik.resetForm();
                 }
-                console.log(usr);
+                console.log(user);
             }
         },
         // Form values validation definition

@@ -24,7 +24,8 @@ function CreateAccount() {
                     name: Formik.values.name,
                     email: Formik.values.email,
                     password: Formik.values.password,
-                    balance: 0
+                    balance: 0,
+                    theme: false
                 });
                 setStatus(true);
                 alert('Account created');

@@ -6,12 +6,12 @@ export const themes = {
         bgcolor: 'white',
     },
     dark: {
-        txtcolor: '#ffffff',
-        bgcolor: '#222222',
+        txtcolor: 'white',
+        bgcolor: 'dark',
     }
 }
 
-export const UserContext = React.createContext(undefined);
+
 export const UsersContext = React.createContext(null);
 
 function validateEmail(email) {
