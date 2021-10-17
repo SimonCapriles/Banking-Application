@@ -34,7 +34,6 @@ function CreateAccount() {
                     email: Formik.values.email,
                     password: Formik.values.password,
                     balance: 0,
-                    theme: false
                 });
                 console.log(temp)
                 setUsers({userList: temp})

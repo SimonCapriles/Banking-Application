@@ -11,12 +11,12 @@ export const themes = {
     }
 }
 
-function validateEmail(email) {
+export function validateEmail(email) {
     const re = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
     return re.test(String(email).toLowerCase())
 }
 
-function Card(props){
+export default function Card(props){
     function classes(){
         const bg  = props.bgcolor ? ' bg-' + props.bgcolor : ' ';
         const txt = props.txtcolor ? ' text-' + props.txtcolor: ' text-white';
@@ -36,6 +36,4 @@ function Card(props){
     );
 }
 
-export default Card;
-export {validateEmail};
 export const ThemeContext = React.createContext(themes.dark);

@@ -45,9 +45,6 @@ function NavBar() {
             <div className="text-light m-2">
                 Username: {user.name}<br/>
                 Balance: {user.balance}
-                <div className="form-check form-switch">
-                    <div className="text-light">Dark <input className="form-check-input dark" type="checkbox" role="switch" id="themeSwitch">{user.theme}</input></div>
-                </div>
             </div>
             }
         </nav>

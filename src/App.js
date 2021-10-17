@@ -15,7 +15,6 @@ export const UserContext = React.createContext({
     name: null,
     mail: null,
     balance: 0,
-    theme: 'light',
     setUser:() => {}
 });
 export const UsersContext = React.createContext({
