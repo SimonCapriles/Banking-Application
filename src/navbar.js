@@ -8,6 +8,9 @@ function NavBar() {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <Link className="navbar-brand m-2" data-toggle="tooltip" data-placement="bottom" title="Go to the home page" to="/">BadBank</Link>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"/>
+            </button>
             { !user &&
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav">
